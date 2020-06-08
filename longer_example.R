@@ -7,7 +7,7 @@ library(rprojroot)
 library("RColorBrewer")
 matches <- dplyr::matches
 
-setwd("~/repo/ui_calculator/")
+setwd("/Users/rorr/Desktop/Welfare_Policy/Unemployment Insurance/ui_calculator")
 
 
 #the benefits calculator is written in python.
@@ -18,14 +18,21 @@ setwd("~/repo/ui_calculator/")
 library(reticulate)
 #point this to a conda environment that includes numpy and pandas. The YAML export of the environment
 #we used is in the source folder.
-use_condaenv() #You could also replace this with use_python()
-source_python("source/ui_calculator.py")
+#You could also replace this with use_python()
+getwd()
+# use_condaenv("/Users/rorr/opt/anaconda3/envs/")
+# path_to_python <- "/Users/rorr/opt/anaconda3/bin/python"
+use_condaenv('/Users/rorr/opt/anaconda3/bin/python', required = T)
+use_python(python='/Users/rorr/opt/anaconda3/bin/python', required = T)
 
+py_discover_config()
+
+py_config()
+source_python("/Users/rorr/Desktop/Welfare_Policy/Unemployment Insurance/ui_calculator/source/ui_calculator.py")
 palette <- RColorBrewer::brewer.pal(6, "Blues")
 
-
 #### Read in data ####
-
+py_discover_config()
 fips_codes <- maps::state.fips %>%
   select(fips,
          state = abb) %>%
